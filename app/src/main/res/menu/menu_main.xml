@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_electronics"
+        android:title="@string/electr_nica"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_jewelery"
+        android:title="@string/joyer_a"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_men"
+        android:title="@string/ropa_hombre"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_women"
+        android:title="@string/ropa_mujer"
+        app:showAsAction="never"/>
+</menu>

@@ -1,26 +1,25 @@
 package com.example.examen_android.viewModel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.examen_android.model.Productos
 import com.example.examen_android.repository.ProductoRepository
 import kotlinx.coroutines.launch
 
-class ProductoViewModel (private val repository: ProductoRepository) : ViewModel() {
+class ProductoViewModel(application: Application, private val repository: ProductoRepository) : AndroidViewModel(application) {
+    private val _products = MutableLiveData<List<Productos>>()
+    val products: LiveData<List<Productos>> get() = _products
 
-    private val _productos = MutableLiveData<List<Productos>>()
-    val productos : LiveData<List<Productos>> = _productos
-
-
-    fun cargarProdcutos(){
-        viewModelScope.launch{
-            val producto = repository.obtenerProductos()
-            if (producto!=null){
-                _productos.value = producto ?: emptyList()
-            } else {
-                println("Error al cargar los productos")
+    fun fetchProducts(category: String) {
+        viewModelScope.launch {
+            try {
+                val productList = repository.fetchProductsByCategory(category)
+                _products.postValue(productList ?: emptyList())
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
